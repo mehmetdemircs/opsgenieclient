@@ -1,28 +1,36 @@
 package com.ifountain.opsgenie.client.model.alert;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 import com.ifountain.opsgenie.client.model.BaseRequest;
 import com.ifountain.opsgenie.client.model.BaseResponse;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
-public abstract class BaseAlertRequestWithId<T extends BaseResponse> extends BaseRequest<T>{
+/**
+ * Abstract Container for the alert requests.
+ *
+ * @author Mehmet Mustafa Demir
+ */
+public abstract class BaseAlertRequestWithId<T extends BaseResponse> extends BaseRequest<T> {
     private String id;
     private String alias;
     private String tinyId;
 
     /**
      * The id of the alert.
+     *
      * @deprecated use getId
      */
     @JsonIgnore
+    @Deprecated
     public String getAlertId() {
         return id;
     }
 
     /**
      * Sets the id of the alert. Either this or alias should be set.
+     *
      * @deprecated use setId
      */
+    @Deprecated
     public void setAlertId(String alertId) {
         this.id = alertId;
     }
@@ -63,7 +71,8 @@ public abstract class BaseAlertRequestWithId<T extends BaseResponse> extends Bas
     }
 
     /**
-     * Sets the user defined identifier of the alert. Either this or alertId should be set.
+     * Sets the user defined identifier of the alert. Either this or alertId
+     * should be set.
      */
     public void setAlias(String alias) {
         this.alias = alias;

@@ -5,13 +5,13 @@ import com.ifountain.opsgenie.client.model.BaseRequest;
 /**
  * Container for the parameters to make a delete team api call.
  *
- * @author Sezgin Kucukkaraaslan
- * @version 12/3/2014 12:00 PM
+ * @author Mehmet Mustafa Demir
  * @see com.ifountain.opsgenie.client.ITeamOpsGenieClient#deleteTeam(DeleteTeamRequest)
  */
-public class DeleteTeamRequest extends BaseRequest<DeleteTeamResponse>{
+public class DeleteTeamRequest extends BaseRequest<DeleteTeamResponse> {
     private String id;
     private String name;
+
     /**
      * Rest api uri of deleting team operation.
      */

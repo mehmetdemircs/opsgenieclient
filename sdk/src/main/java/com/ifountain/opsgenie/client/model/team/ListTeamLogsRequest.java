@@ -1,27 +1,23 @@
 package com.ifountain.opsgenie.client.model.team;
 
 import com.ifountain.opsgenie.client.model.BaseRequest;
-
-
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Container for the parameters to make a list team logs api call.
  *
- * @author Sezgin Kucukkaraaslan
- * @version 12/3/2014 1:51 PM
+ * @author Mehmet Mustafa Demir
  * @see com.ifountain.opsgenie.client.ITeamOpsGenieClient#listTeamLogs(ListTeamLogsRequest)
  */
-public class ListTeamLogsRequest extends BaseRequest<ListTeamLogsResponse>{
-    public enum SortOrder{
-        asc,
-        desc
+public class ListTeamLogsRequest extends BaseRequest<ListTeamLogsResponse> {
+    public enum SortOrder {
+        asc, desc
     }
+
     private String id;
     private String name;
-    @JsonIgnore
-    private SortOrder sortOrder =SortOrder.asc;
+    @JsonProperty("order")
+    private SortOrder sortOrder = SortOrder.asc;
     private Integer limit = 100;
     private String lastKey;
 
@@ -53,14 +49,6 @@ public class ListTeamLogsRequest extends BaseRequest<ListTeamLogsResponse>{
         this.name = name;
     }
 
-
-	@JsonProperty("order")
-    public String getSortOrderName() {
-        if(sortOrder != null)
-        	return sortOrder.name();
-        return null;
-    }
-    
     public SortOrder getSortOrder() {
         return sortOrder;
     }

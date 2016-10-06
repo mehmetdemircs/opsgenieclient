@@ -2,25 +2,25 @@ package com.ifountain.opsgenie.client.model.user;
 
 import com.ifountain.opsgenie.client.model.BaseRequest;
 import com.ifountain.opsgenie.client.model.beans.User;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.util.Locale;
 import java.util.TimeZone;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * Container for the parameters to make an add user api call.
  *
+ * @author Mehmet Mustafa Demir
  * @see com.ifountain.opsgenie.client.IUserOpsGenieClient#addUser(AddUserRequest)
  */
 public class AddUserRequest extends BaseRequest<AddUserResponse> {
     private String username;
     private String fullname;
-    @JsonIgnore
+    private String skypeUsername;
+    @JsonProperty("timezone")
     private TimeZone timeZone;
     private Locale locale;
     private User.Role role;
-
 
     /**
      * Rest api uri of addding user operation.
@@ -59,16 +59,6 @@ public class AddUserRequest extends BaseRequest<AddUserResponse> {
     }
 
     /**
-     * TimeZoneId of user
-     */
-	@JsonProperty("timezone")
-    public String getTimeZoneID() {
-    	if(timeZone != null)
-    		return timeZone.getID();
-    	return null;
-    }
-    
-    /**
      * TimeZone of user
      */
     public TimeZone getTimeZone() {
@@ -81,7 +71,7 @@ public class AddUserRequest extends BaseRequest<AddUserResponse> {
     public void setTimeZone(TimeZone timeZone) {
         this.timeZone = timeZone;
     }
-    
+
     /**
      * Locale of user
      */
@@ -98,17 +88,7 @@ public class AddUserRequest extends BaseRequest<AddUserResponse> {
 
     /**
      * Role of user
-     * @see com.ifountain.opsgenie.client.model.beans.User.Role
-     */
-	@JsonProperty("role")
-    public String getRoleName() {
-    	if(role != null)
-    		return role.name();
-    	return null;
-    }
-    
-    /**
-     * Role of user
+     *
      * @see com.ifountain.opsgenie.client.model.beans.User.Role
      */
     public User.Role getRole() {
@@ -117,17 +97,26 @@ public class AddUserRequest extends BaseRequest<AddUserResponse> {
 
     /**
      * Sets role of user
+     *
      * @see com.ifountain.opsgenie.client.model.beans.User.Role
      */
     public void setRole(User.Role role) {
         this.role = role;
     }
 
-    @Override
     /**
      * @see com.ifountain.opsgenie.client.model.BaseRequest#createResponse()
      */
+    @Override
     public AddUserResponse createResponse() {
         return new AddUserResponse();
+    }
+
+    public String getSkypeUsername() {
+        return skypeUsername;
+    }
+
+    public void setSkypeUsername(String skypeUsername) {
+        this.skypeUsername = skypeUsername;
     }
 }

@@ -1,44 +1,31 @@
 package com.ifountain.opsgenie.client.model.contact;
 
-import com.ifountain.opsgenie.client.model.BaseRequest;
+import com.ifountain.opsgenie.client.model.BaseUserRequest;
+
 /**
  * Container for the parameters to make an disable contact api call.
- * @see com.ifountain.opsgenie.client.IContactOpsGenieClient#disableContact(com.ifountain.opsgenie.client.model.contact.DisableContactRequest)
+ *
+ * @author Mehmet Mustafa Demir
+ * @see com.ifountain.opsgenie.client.IContactOpsGenieClient#disableContact(DisableContactRequest)
  */
-public class DisableContactRequest extends BaseRequest<DisableContactResponse> {
-	private String username;
-	private String userId;
-	private String id;
-	
-	@Override
-	public String getEndPoint() {
-		return "/v1/json/user/contact/disable";
-	}
-	@Override
-	public DisableContactResponse createResponse() {
-		return new DisableContactResponse();
-	}
-	public String getUsername() {
-		return username;
-	}
+public class DisableContactRequest extends BaseUserRequest<DisableContactResponse> {
+    private String id;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    @Override
+    public String getEndPoint() {
+        return "/v1/json/user/contact/disable";
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    @Override
+    public DisableContactResponse createResponse() {
+        return new DisableContactResponse();
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 }

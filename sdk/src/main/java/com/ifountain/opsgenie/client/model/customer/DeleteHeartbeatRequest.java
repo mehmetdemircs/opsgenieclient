@@ -5,6 +5,7 @@ import com.ifountain.opsgenie.client.model.BaseRequest;
 /**
  * Container for the parameters to make a delete heartbeat monitor api call.
  *
+ * @author Mehmet Mustafa Demir
  * @see com.ifountain.opsgenie.client.IOpsGenieClient#deleteHeartbeat(DeleteHeartbeatRequest)
  */
 public class DeleteHeartbeatRequest extends BaseRequest<DeleteHeartbeatResponse> {
@@ -46,10 +47,10 @@ public class DeleteHeartbeatRequest extends BaseRequest<DeleteHeartbeatResponse>
         setName(source);
     }
 
-    @Override
     /**
      * @see com.ifountain.opsgenie.client.model.BaseRequest#createResponse()
      */
+    @Override
     public DeleteHeartbeatResponse createResponse() {
         return new DeleteHeartbeatResponse();
     }

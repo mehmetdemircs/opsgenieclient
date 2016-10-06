@@ -1,14 +1,12 @@
 package com.ifountain.opsgenie.client.model.alertpolicy;
 
 import com.ifountain.opsgenie.client.model.BaseRequest;
-
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * Container for the parameters to enable/disable  alert policy.
  *
- * @version 11/26/12 4:17 PM
+ * @author Mehmet Mustafa Demir
  * @see com.ifountain.opsgenie.client.IAlertPolicyOpsGenieClient#enableAlertPolicy(EnableAlertPolicyRequest)
  */
 public class EnableAlertPolicyRequest extends BaseRequest<EnableAlertPolicyResponse> {
@@ -71,10 +69,10 @@ public class EnableAlertPolicyRequest extends BaseRequest<EnableAlertPolicyRespo
         this.name = name;
     }
 
-    @Override
     /**
      * @see com.ifountain.opsgenie.client.model.BaseRequest#createResponse()
      */
+    @Override
     public EnableAlertPolicyResponse createResponse() {
         return new EnableAlertPolicyResponse();
     }

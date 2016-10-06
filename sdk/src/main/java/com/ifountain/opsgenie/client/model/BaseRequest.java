@@ -2,24 +2,22 @@ package com.ifountain.opsgenie.client.model;
 
 import com.ifountain.opsgenie.client.OpsGenieClientConstants;
 import com.ifountain.opsgenie.client.OpsGenieClientValidationException;
-
-import java.util.Map;
-import java.util.TreeMap;
-
-import javax.xml.bind.ValidationException;
-
+import com.ifountain.opsgenie.client.util.JsonUtils;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 
+import java.util.Map;
+
 /**
- * Base class for container objects which provides content parameters for OpsGenie service calls.
+ * Base class for container objects which provides content parameters for
+ * OpsGenie service calls.
  *
- * @author Sezgin Kucukkaraaslan
- * @version 5/31/12 2:03 PM
+ * @author Mehmet Mustafa Demir
  */
-@JsonSerialize(include=Inclusion.NON_NULL)
+@JsonSerialize(include = Inclusion.NON_NULL)
+@JsonPropertyOrder(alphabetic = true)
 public abstract class BaseRequest<T extends BaseResponse> implements Request {
     private String apiKey;
 
@@ -28,16 +26,6 @@ public abstract class BaseRequest<T extends BaseResponse> implements Request {
      */
     public String getApiKey() {
         return apiKey;
-    }
-    /**
-     * check the parameters for validation.
-     * It will be overridden by necessary Requests.
-     * @throws ValidationException when api key is null!
-     */
-    @JsonIgnore
-    public void validate() throws OpsGenieClientValidationException{
-    	if(apiKey == null)
-    		throw OpsGenieClientValidationException.missingMandatoryProperty(OpsGenieClientConstants.API.API_KEY);
     }
 
     /**
@@ -48,18 +36,30 @@ public abstract class BaseRequest<T extends BaseResponse> implements Request {
     }
 
     /**
-     * @deprecated
-     * Use getApiKey
+     * check the parameters for validation. It will be overridden by necessary
+     * Requests.
+     *
+     * @throws OpsGenieClientValidationException when api key is null!
      */
     @JsonIgnore
+    public void validate() throws OpsGenieClientValidationException {
+        if (apiKey == null)
+            throw OpsGenieClientValidationException.missingMandatoryProperty(OpsGenieClientConstants.API.API_KEY);
+    }
+
+    /**
+     * @deprecated Use getApiKey
+     */
+    @JsonIgnore
+    @Deprecated
     public String getCustomerKey() {
         return apiKey;
     }
 
     /**
-     * @deprecated
-     * Use setApiKey
+     * @deprecated Use setApiKey
      */
+    @Deprecated
     public void setCustomerKey(String apiKey) {
         setApiKey(apiKey);
     }
@@ -67,11 +67,15 @@ public abstract class BaseRequest<T extends BaseResponse> implements Request {
     /**
      * convertes request to map
      */
+    @Deprecated
     public Map serialize() throws OpsGenieClientValidationException {
-    	validate();
-    	ObjectMapper mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(Inclusion.NON_NULL);
-		return  new TreeMap(mapper.convertValue(this, Map.class));
+        validate();
+        try {
+            return JsonUtils.toMap(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

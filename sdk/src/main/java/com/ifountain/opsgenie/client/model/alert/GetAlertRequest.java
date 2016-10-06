@@ -6,8 +6,7 @@ import com.ifountain.opsgenie.client.OpsGenieClientValidationException;
 /**
  * Container for the parameters to make a get alert api call.
  *
- * @author Sezgin Kucukkaraaslan
- * @version 5/31/12 4:30 PM
+ * @author Mehmet Mustafa Demir
  * @see com.ifountain.opsgenie.client.IAlertOpsGenieClient#getAlert(GetAlertRequest)
  */
 public class GetAlertRequest extends BaseAlertRequestWithId<GetAlertResponse> {
@@ -20,20 +19,18 @@ public class GetAlertRequest extends BaseAlertRequestWithId<GetAlertResponse> {
     }
 
     @Override
-    public void validate() throws OpsGenieClientValidationException { 
-    	if(!(this.getId() != null
-            || this.getAlertId() != null
-            || this.getAlias() != null
-    		|| this.getTinyId() != null) )
-        throw OpsGenieClientValidationException.missingMultipleMandatoryProperty(OpsGenieClientConstants.API.ID,
-        		OpsGenieClientConstants.API.ALERT_ID,OpsGenieClientConstants.API.ALIAS,OpsGenieClientConstants.API.TINY_ID);
-    	super.validate();
+    public void validate() throws OpsGenieClientValidationException {
+        if (!(this.getId() != null || this.getAlias() != null || this.getTinyId() != null)) {
+            throw OpsGenieClientValidationException.missingMultipleMandatoryProperty(OpsGenieClientConstants.API.ID,
+                    OpsGenieClientConstants.API.ALIAS, OpsGenieClientConstants.API.TINY_ID);
+        }
+        super.validate();
     }
 
-    @Override
     /**
      * @see com.ifountain.opsgenie.client.model.BaseRequest#createResponse()
      */
+    @Override
     public GetAlertResponse createResponse() {
         return new GetAlertResponse();
     }

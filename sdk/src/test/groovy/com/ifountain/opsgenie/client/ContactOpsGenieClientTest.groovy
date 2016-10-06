@@ -4,13 +4,7 @@ import com.ifountain.opsgenie.client.http.HttpTestRequest
 import com.ifountain.opsgenie.client.http.HttpTestRequestListener
 import com.ifountain.opsgenie.client.http.HttpTestResponse
 import com.ifountain.opsgenie.client.model.beans.Contact
-import com.ifountain.opsgenie.client.model.contact.AddContactRequest
-import com.ifountain.opsgenie.client.model.contact.DeleteContactRequest
-import com.ifountain.opsgenie.client.model.contact.DisableContactRequest
-import com.ifountain.opsgenie.client.model.contact.EnableContactRequest
-import com.ifountain.opsgenie.client.model.contact.GetContactRequest
-import com.ifountain.opsgenie.client.model.contact.ListContactsRequest
-import com.ifountain.opsgenie.client.model.contact.UpdateContactRequest
+import com.ifountain.opsgenie.client.model.contact.*
 import com.ifountain.opsgenie.client.test.util.OpsGenieClientTestCase
 import com.ifountain.opsgenie.client.util.JsonUtils
 import org.apache.http.HttpHeaders
@@ -18,7 +12,6 @@ import org.apache.http.client.methods.HttpDelete
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.methods.HttpPost
 import org.junit.Test
-
 
 import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertTrue
@@ -204,6 +197,7 @@ class ContactOpsGenieClientTest extends OpsGenieClientTestCase implements HttpTe
         assertEquals(request.getId(), jsonContent[TestConstants.API.ID])
         assertEquals(request.getUsername(), jsonContent[TestConstants.API.USERNAME])
     }
+
     @Test
     public void testEnableContactWithUserId() throws Exception {
         OpsGenieClientTestCase.httpServer.setResponseToReturn(new HttpTestResponse("{\"status\":\"success\", \"took\":1}".getBytes(), 200, "application/json; charset=utf-8"))
@@ -254,6 +248,7 @@ class ContactOpsGenieClientTest extends OpsGenieClientTestCase implements HttpTe
         assertEquals(request.getId(), jsonContent[TestConstants.API.ID])
         assertEquals(request.getUsername(), jsonContent[TestConstants.API.USERNAME])
     }
+
     @Test
     public void testDisableContactWithUserId() throws Exception {
         OpsGenieClientTestCase.httpServer.setResponseToReturn(new HttpTestResponse("{\"status\":\"success\", \"took\":1}".getBytes(), 200, "application/json; charset=utf-8"))
@@ -368,29 +363,29 @@ class ContactOpsGenieClientTest extends OpsGenieClientTestCase implements HttpTe
         contact3Content.put(TestConstants.API.ID, "d670912e-25fe-4101-9719-0b72898b74e5");
         contact3Content.put(TestConstants.API.ENABLED, false);
 
-        OpsGenieClientTestCase.httpServer.setResponseToReturn(new HttpTestResponse(JsonUtils.toJson(userContacts: [contact1Content, contact2Content,contact3Content]).getBytes(), 200, "application/json; charset=utf-8"))
+        OpsGenieClientTestCase.httpServer.setResponseToReturn(new HttpTestResponse(JsonUtils.toJson(userContacts: [contact1Content, contact2Content, contact3Content]).getBytes(), 200, "application/json; charset=utf-8"))
 
         ListContactsRequest request = new ListContactsRequest();
         request.setApiKey("customer1");
         request.setUsername("user1");
 
         def response = OpsGenieClientTestCase.opsgenieClient.contact().listContact(request)
-        assertEquals(3, response.getContacts().size())
-        Contact contact = response.getContacts().find { it.id == contact1Content[TestConstants.API.ID] }
+        assertEquals(3, response.getUserContacts().size())
+        Contact contact = response.getUserContacts().find { it.id == contact1Content[TestConstants.API.ID] }
         assertEquals(contact1Content[TestConstants.API.DISABLED_REASON], contact.getDisabledReason())
         assertEquals(contact1Content[TestConstants.API.METHOD], contact.getMethod().value())
         assertEquals(contact1Content[TestConstants.API.TO], contact.getTo())
         assertEquals(contact1Content[TestConstants.API.ID], contact.getId())
         assertEquals(contact1Content[TestConstants.API.ENABLED], contact.getEnabled())
 
-        contact = response.getContacts().find { it.id == contact2Content[TestConstants.API.ID] }
+        contact = response.getUserContacts().find { it.id == contact2Content[TestConstants.API.ID] }
         assertEquals(contact2Content[TestConstants.API.DISABLED_REASON], contact.getDisabledReason())
         assertEquals(contact2Content[TestConstants.API.METHOD], contact.getMethod().value())
         assertEquals(contact2Content[TestConstants.API.TO], contact.getTo())
         assertEquals(contact2Content[TestConstants.API.ID], contact.getId())
         assertEquals(contact2Content[TestConstants.API.ENABLED], contact.getEnabled())
 
-        contact = response.getContacts().find { it.id == contact3Content[TestConstants.API.ID] }
+        contact = response.getUserContacts().find { it.id == contact3Content[TestConstants.API.ID] }
         assertEquals(contact3Content[TestConstants.API.DISABLED_REASON], contact.getDisabledReason())
         assertEquals(contact3Content[TestConstants.API.METHOD], contact.getMethod().value())
         assertEquals(contact3Content[TestConstants.API.TO], contact.getTo())
@@ -428,29 +423,29 @@ class ContactOpsGenieClientTest extends OpsGenieClientTestCase implements HttpTe
         contact3Content.put(TestConstants.API.ID, "d670912e-25fe-4101-9719-0b72898b74e5");
         contact3Content.put(TestConstants.API.ENABLED, false);
 
-        OpsGenieClientTestCase.httpServer.setResponseToReturn(new HttpTestResponse(JsonUtils.toJson(userContacts: [contact1Content, contact2Content,contact3Content]).getBytes(), 200, "application/json; charset=utf-8"))
+        OpsGenieClientTestCase.httpServer.setResponseToReturn(new HttpTestResponse(JsonUtils.toJson(userContacts: [contact1Content, contact2Content, contact3Content]).getBytes(), 200, "application/json; charset=utf-8"))
 
         ListContactsRequest request = new ListContactsRequest();
         request.setApiKey("customer1");
         request.setUserId("user1");
 
         def response = OpsGenieClientTestCase.opsgenieClient.contact().listContact(request)
-        assertEquals(3, response.getContacts().size())
-        Contact contact = response.getContacts().find { it.id == contact1Content[TestConstants.API.ID] }
+        assertEquals(3, response.getUserContacts().size())
+        Contact contact = response.getUserContacts().find { it.id == contact1Content[TestConstants.API.ID] }
         assertEquals(contact1Content[TestConstants.API.DISABLED_REASON], contact.getDisabledReason())
         assertEquals(contact1Content[TestConstants.API.METHOD], contact.getMethod().value())
         assertEquals(contact1Content[TestConstants.API.TO], contact.getTo())
         assertEquals(contact1Content[TestConstants.API.ID], contact.getId())
         assertEquals(contact1Content[TestConstants.API.ENABLED], contact.getEnabled())
 
-        contact = response.getContacts().find { it.id == contact2Content[TestConstants.API.ID] }
+        contact = response.getUserContacts().find { it.id == contact2Content[TestConstants.API.ID] }
         assertEquals(contact2Content[TestConstants.API.DISABLED_REASON], contact.getDisabledReason())
         assertEquals(contact2Content[TestConstants.API.METHOD], contact.getMethod().value())
         assertEquals(contact2Content[TestConstants.API.TO], contact.getTo())
         assertEquals(contact2Content[TestConstants.API.ID], contact.getId())
         assertEquals(contact2Content[TestConstants.API.ENABLED], contact.getEnabled())
 
-        contact = response.getContacts().find { it.id == contact3Content[TestConstants.API.ID] }
+        contact = response.getUserContacts().find { it.id == contact3Content[TestConstants.API.ID] }
         assertEquals(contact3Content[TestConstants.API.DISABLED_REASON], contact.getDisabledReason())
         assertEquals(contact3Content[TestConstants.API.METHOD], contact.getMethod().value())
         assertEquals(contact3Content[TestConstants.API.TO], contact.getTo())

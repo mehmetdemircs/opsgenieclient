@@ -57,7 +57,7 @@ public interface IContactOpsGenieClient {
      *
      * @param disableContactRequest  Object to construct request parameters.
      * @return <code>EnableContactResponse</code> object containing OpsGenie response information.
-     * @see com.ifountain.opsgenie.client.model.contact.disableContactRequest
+     * @see com.ifountain.opsgenie.client.model.contact.DisableContactRequest
      * @see com.ifountain.opsgenie.client.model.contact.DisableContactResponse
      */
     public DisableContactResponse disableContact(DisableContactRequest disableContactRequest) throws ParseException, OpsGenieClientException, IOException;
@@ -76,7 +76,7 @@ public interface IContactOpsGenieClient {
     /**
      * List contact of customer
      *
-     * @param listContactRequest Object to construct request parameters.
+     * @param listContactsRequest Object to construct request parameters.
      * @return <code>ListContactResponse</code> object containing OpsGenie response information.
      * @see com.ifountain.opsgenie.client.model.contact.ListContactsRequest
      * @see com.ifountain.opsgenie.client.model.contact.ListContactsResponse

@@ -1,25 +1,21 @@
 package com.ifountain.opsgenie.client.model.alert;
 
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-
 
 /**
  * Container for the parameters to make a list alerts api call.
  *
- * @author Mehmet Mustafa Demir mehmetdemircs@gmail.com
- * @version 18/08/16 1:30 PM
- * @see com.ifountain.opsgenie.client.IAlertOpsGenieClient#listAlerts(com.ifountain.opsgenie.client.model.alert.ListAlertsRequest)
+ * @author Mehmet Mustafa Demir
+ * @see com.ifountain.opsgenie.client.IAlertOpsGenieClient#listAlerts(ListAlertsRequest)
  */
 public class ListAlertsRequest extends AlertsRequest<ListAlertsResponse> {
-    public enum SortBy{
-        createdAt,
-        updatedAt
+    public enum SortBy {
+        createdAt, updatedAt
     }
-    public enum SortOrder{
-        asc,
-        desc
+
+    public enum SortOrder {
+        asc, desc
     }
 
     private SortBy sortBy;
@@ -33,12 +29,14 @@ public class ListAlertsRequest extends AlertsRequest<ListAlertsResponse> {
     public String getEndPoint() {
         return "/v1/json/alert";
     }
-	@JsonProperty("sortBy")
+
+    @JsonProperty("sortBy")
     public String getSortByName() {
-    	if(sortBy != null)
-    		return sortBy.name();
-    	return null;
+        if (sortBy != null)
+            return sortBy.name();
+        return null;
     }
+
     public SortBy getSortBy() {
         return sortBy;
     }
@@ -47,13 +45,13 @@ public class ListAlertsRequest extends AlertsRequest<ListAlertsResponse> {
         this.sortBy = sortBy;
     }
 
-	@JsonProperty("order")
+    @JsonProperty("order")
     public String getSortOrderName() {
-    	if(sortOrder != null)
-    		return sortOrder.name();
-    	return null;
+        if (sortOrder != null)
+            return sortOrder.name();
+        return null;
     }
-    
+
     public SortOrder getSortOrder() {
         return sortOrder;
     }
@@ -62,10 +60,10 @@ public class ListAlertsRequest extends AlertsRequest<ListAlertsResponse> {
         this.sortOrder = sortOrder;
     }
 
-    @Override
     /**
      * @see com.ifountain.opsgenie.client.model.BaseRequest#createResponse()
      */
+    @Override
     public ListAlertsResponse createResponse() {
         return new ListAlertsResponse();
     }

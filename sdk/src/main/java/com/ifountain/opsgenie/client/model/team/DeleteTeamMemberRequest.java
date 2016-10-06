@@ -3,59 +3,60 @@ package com.ifountain.opsgenie.client.model.team;
 import com.ifountain.opsgenie.client.model.BaseRequest;
 
 /**
- * Container for the parameters to make an remove team memberapi call.
+ * Container for the parameters to remove a team member api call.
  *
+ * @author Mehmet Mustafa Demir
  * @see com.ifountain.opsgenie.client.ITeamOpsGenieClient#deleteTeamMember(DeleteTeamMemberRequest)
  */
-public class DeleteTeamMemberRequest extends BaseRequest<DeleteTeamMemberResponse>{
+public class DeleteTeamMemberRequest extends BaseRequest<DeleteTeamMemberResponse> {
     private String id;
     private String name;
     private String userId;
     private String username;
-	
+
     @Override
+    public String getEndPoint() {
+        return "/v1/json/team/member";
+    }
+
     /**
      * @see com.ifountain.opsgenie.client.model.BaseRequest#createResponse()
      */
+    @Override
     public DeleteTeamMemberResponse createResponse() {
         return new DeleteTeamMemberResponse();
     }
 
-	@Override
-	public String getEndPoint() {
-        return "/v1/json/team/member";
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
 }

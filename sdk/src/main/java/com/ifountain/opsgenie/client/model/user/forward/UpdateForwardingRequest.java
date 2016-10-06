@@ -1,17 +1,17 @@
 package com.ifountain.opsgenie.client.model.user.forward;
 
-import javax.xml.bind.ValidationException;
-
 import com.ifountain.opsgenie.client.OpsGenieClientConstants;
 import com.ifountain.opsgenie.client.OpsGenieClientValidationException;
 
 /**
  * Container for the parameters to make an update forwarding api call.
  *
+ * @author Mehmet Mustafa Demir
  * @see com.ifountain.opsgenie.client.IUserOpsGenieClient#updateForwarding(com.ifountain.opsgenie.client.model.user.forward.UpdateForwardingRequest)
  */
-public class UpdateForwardingRequest extends AddForwardingRequest{
+public class UpdateForwardingRequest extends AddForwardingRequest {
     private String id;
+
     /**
      * Rest api uri of update forwarding operation.
      */
@@ -19,18 +19,18 @@ public class UpdateForwardingRequest extends AddForwardingRequest{
     public String getEndPoint() {
         return "/v1/json/user/forward";
     }
-    
-    
+
+
     /**
      * check the parameters for validation.
-     * It will be overridden by necessary Requests.
-     * @throws ValidationException when alias and id both null!
+     *
+     * @throws OpsGenieClientValidationException when alias and id both null!
      */
     @Override
     public void validate() throws OpsGenieClientValidationException {
-    	super.validate();
-    	if(getId() == null && getAlias() == null)
-    		throw OpsGenieClientValidationException.missingMultipleMandatoryProperty(OpsGenieClientConstants.API.ALIAS,OpsGenieClientConstants.API.ID);
+        super.validate();
+        if (getId() == null && getAlias() == null)
+            throw OpsGenieClientValidationException.missingMultipleMandatoryProperty(OpsGenieClientConstants.API.ALIAS, OpsGenieClientConstants.API.ID);
     }
 
     /**
@@ -47,10 +47,10 @@ public class UpdateForwardingRequest extends AddForwardingRequest{
         this.id = id;
     }
 
-    @Override
     /**
      * @see com.ifountain.opsgenie.client.model.BaseRequest#createResponse()
      */
+    @Override
     public UpdateForwardingResponse createResponse() {
         return new UpdateForwardingResponse();
     }
